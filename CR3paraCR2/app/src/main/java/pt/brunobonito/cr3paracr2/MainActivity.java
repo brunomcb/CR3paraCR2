@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
         getWindow().setStatusBarColor(Color.rgb(246,247,251));
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ScrollView scroll=new ScrollView(this); scroll.setFillViewport(true); scroll.setBackgroundColor(Color.rgb(246,247,251));
-        LinearLayout page=new LinearLayout(this); page.setOrientation(LinearLayout.VERTICAL); page.setPadding(dp(22),dp(28),dp(22),dp(30));
+        LinearLayout page=new LinearLayout(this); page.setOrientation(LinearLayout.VERTICAL); page.setPadding(dp(22), statusBarHeight() + dp(28), dp(22), dp(30));
         scroll.addView(page,new ScrollView.LayoutParams(-1,-2));
         TextView brand=text("RAW RENAME",14,true); brand.setTextColor(Color.rgb(91,79,247)); page.addView(brand,lp(0,22));
         TextView title=text("Organiza os teus ficheiros RAW em segundos.",34,true); title.setTextColor(Color.rgb(23,26,43)); page.addView(title,lp(0,12));
@@ -35,6 +35,10 @@ public class MainActivity extends Activity {
         page.addView(card,lp(0,18));
         TextView warning=text("IMPORTANTE\n\nA extensão muda, mas o formato RAW interno continua a ser CR3. Esta operação não converte a imagem.",14,false); warning.setTextColor(Color.rgb(55,48,110)); warning.setPadding(dp(18),dp(16),dp(18),dp(16)); warning.setBackground(roundBg(Color.rgb(239,238,255),18)); page.addView(warning,lp(0,18));
         status=text("Pronto para começar",14,true); status.setTextColor(Color.rgb(105,112,137)); status.setTextIsSelectable(true); page.addView(status,lp(0,0)); setContentView(scroll);
+    }
+    private int statusBarHeight() {
+        int id = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return id > 0 ? getResources().getDimensionPixelSize(id) : dp(24);
     }
     private android.graphics.drawable.GradientDrawable roundBg(int color,int radius){android.graphics.drawable.GradientDrawable g=new android.graphics.drawable.GradientDrawable();g.setColor(color);g.setCornerRadius(dp(radius));return g;}
     private TextView text(String s, int sp, boolean bold) {
