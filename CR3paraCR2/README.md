@@ -1,16 +1,23 @@
-# RAW Rename 3.0
-Aplicação Android Material 3 para renomear extensões em lote usando o Storage Access Framework.
+# RAW Rename - App icon patch
 
-## Funcionalidades diretas da app
-- CR3 ↔ CR2 e extensões personalizadas
-- Pré-visualização e conflitos: ignorar, sufixar ou cancelar
-- Prefixo e sufixo opcionais
-- Subpastas
-- WorkManager em background, notificação e cancelamento
-- Progresso Material 3 com conversão explícita
-- Desfazer persistente da última operação
-- Histórico local resumido
-- Exportação CSV
-- Cores dinâmicas do sistema, tema claro/escuro e contraste semântico
+1. Copy the `app/src/main/res` folder from this patch over the same folder in the Android project.
+2. In `app/src/main/AndroidManifest.xml`, add these attributes to `<application>`:
 
-> Renomear uma extensão não converte o formato interno do ficheiro.
+```xml
+android:icon="@mipmap/ic_launcher"
+android:roundIcon="@mipmap/ic_launcher_round"
+```
+
+Example:
+
+```xml
+<application
+    android:name=".RawRenameApp"
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:label="RAW Rename"
+    android:theme="@style/AppTheme">
+```
+
+The patch includes legacy icons for mdpi through xxxhdpi plus Android 8+ adaptive icon resources.
