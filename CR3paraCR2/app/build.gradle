@@ -2,7 +2,7 @@ plugins { id 'com.android.application' }
 android {
  namespace 'pt.brunobonito.cr3paracr2'
  compileSdk 35
- defaultConfig { applicationId 'pt.brunobonito.cr3paracr2'; minSdk 21; targetSdk 35; versionCode 12; versionName '3.0.3' }
+ defaultConfig { applicationId 'pt.brunobonito.cr3paracr2'; minSdk 21; targetSdk 35; versionCode 14; versionName '3.0.5' }
 }
 dependencies {
  implementation 'com.google.android.material:material:1.12.0'
