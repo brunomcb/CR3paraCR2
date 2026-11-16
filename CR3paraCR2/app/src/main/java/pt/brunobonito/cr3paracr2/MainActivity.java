@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
         folderCard.addView(text("Escolhe a pasta que contém os ficheiros",17,true),lp(0,8));
         TextView privacy=text("A app apenas acede à pasta que selecionares.",14,false); privacy.setTextColor(muted()); folderCard.addView(privacy,lp(0,14));
         recursive=new CheckBox(this); recursive.setText("Incluir também as subpastas"); recursive.setTextSize(15); recursive.setTextColor(ink()); recursive.setButtonTintList(android.content.res.ColorStateList.valueOf(purple())); folderCard.addView(recursive,lp(0,16));
-        choose=new MaterialButton(this); choose.setAllCaps(false); choose.setText("Escolher pasta"); choose.setTextColor(Color.WHITE); choose.setTextSize(16); choose.setTypeface(null,1); ((MaterialButton)choose).setCornerRadius(dp(20)); ((MaterialButton)choose).setBackgroundTintList(ColorStateList.valueOf(primary())); choose.setOnClickListener(v->preparePick()); folderCard.addView(choose,new LinearLayout.LayoutParams(-1,dp(58)));
+        choose=new MaterialButton(this); choose.setAllCaps(false); choose.setText("Escolher pasta"); choose.setTextColor(onPrimary()); choose.setTextSize(16); choose.setTypeface(null,1); ((MaterialButton)choose).setCornerRadius(dp(20)); ((MaterialButton)choose).setBackgroundTintList(ColorStateList.valueOf(primary())); choose.setOnClickListener(v->preparePick()); folderCard.addView(choose,new LinearLayout.LayoutParams(-1,dp(58)));
         page.addView(folderShell,lp(0,18));
 
         TextView warning=text("IMPORTANTE\n\nA app altera apenas o nome da extensão. O formato interno do ficheiro não é convertido.",14,false); warning.setTextColor(Color.rgb(55,48,110)); warning.setPadding(dp(18),dp(16),dp(18),dp(16)); warning.setBackground(roundBg(Color.rgb(239,238,255),18)); page.addView(warning,lp(0,18));
@@ -135,7 +135,7 @@ public class MainActivity extends Activity {
         LinearLayout box=column(); box.setPadding(dp(28),dp(26),dp(28),dp(22)); box.setBackground(roundBg(surfaceContainer(),28));
         progressTitle=text("A preparar ficheiros…",22,true); box.addView(progressTitle,lp(0,8));
         TextView sub=text("Mantém a aplicação aberta durante a alteração.",14,false); sub.setTextColor(onSurfaceVariant()); box.addView(sub,lp(0,22));
-        wave=new WaveProgressView(this); wave.setColors(primary(),surfaceVariant()); box.addView(wave,new LinearLayout.LayoutParams(-1,dp(34)));
+        wave=new WaveProgressView(this); wave.setColors(primary(),surfaceVariant()); box.addView(wave,new LinearLayout.LayoutParams(-1,dp(40)));
         progressPercent=text("0%",32,true); progressPercent.setGravity(Gravity.CENTER); progressPercent.setTextColor(primary()); box.addView(progressPercent,lp(12,4));
         progressDialog.setContentView(box); if(progressDialog.getWindow()!=null){progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);progressDialog.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*.88f),-2);} progressDialog.show(); if(progressDialog.getWindow()!=null)progressDialog.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*.88f),-2);
     }
@@ -181,6 +181,7 @@ public class MainActivity extends Activity {
     private android.graphics.drawable.GradientDrawable roundStroke(){android.graphics.drawable.GradientDrawable g=roundBg(Color.WHITE,14);g.setStroke(dp(1),Color.rgb(210,213,225));return g;}
     private int statusBarHeight(){int id=getResources().getIdentifier("status_bar_height","dimen","android");return id>0?getResources().getDimensionPixelSize(id):dp(24);}
     private int dp(int v){return(int)(v*getResources().getDisplayMetrics().density+.5f);}
+    private int onPrimary(){return attr(com.google.android.material.R.attr.colorOnPrimary,Color.WHITE);}
     private int attr(int a,int fallback){TypedValue v=new TypedValue();return getTheme().resolveAttribute(a,v,true)?v.data:fallback;} private int primary(){return attr(com.google.android.material.R.attr.colorPrimary,Color.rgb(91,79,247));} private int surface(){return attr(com.google.android.material.R.attr.colorSurface,Color.rgb(255,251,254));} private int surfaceContainer(){return attr(com.google.android.material.R.attr.colorSurfaceContainerHigh,Color.WHITE);} private int surfaceVariant(){return attr(com.google.android.material.R.attr.colorSurfaceVariant,Color.LTGRAY);} private int outlineVariant(){return attr(com.google.android.material.R.attr.colorOutlineVariant,Color.LTGRAY);} private int onSurfaceVariant(){return attr(com.google.android.material.R.attr.colorOnSurfaceVariant,Color.DKGRAY);} private int purple(){return primary();} private int ink(){return attr(com.google.android.material.R.attr.colorOnSurface,Color.rgb(23,26,43));} private int muted(){return onSurfaceVariant();}
     private String safe(String s){return s==null?"erro desconhecido":s;}
 }
