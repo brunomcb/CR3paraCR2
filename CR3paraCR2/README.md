@@ -1,23 +1,21 @@
-# RAW Rename - App icon patch
+# RAW Rename 3.0.8 - integração do ícone
 
-1. Copy the `app/src/main/res` folder from this patch over the same folder in the Android project.
-2. In `app/src/main/AndroidManifest.xml`, add these attributes to `<application>`:
+Coloque o ZIP da versão 3.0.7 na mesma pasta deste updater e execute:
 
-```xml
-android:icon="@mipmap/ic_launcher"
-android:roundIcon="@mipmap/ic_launcher_round"
+```bash
+chmod +x criar_v3.0.8.sh
+./criar_v3.0.8.sh RAW_Rename_Material3_v3.0.7_buildfix.zip
 ```
 
-Example:
+O resultado será:
 
-```xml
-<application
-    android:name=".RawRenameApp"
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:label="RAW Rename"
-    android:theme="@style/AppTheme">
+```text
+RAW_Rename_Material3_v3.0.8_with_icon.zip
 ```
 
-The patch includes legacy icons for mdpi through xxxhdpi plus Android 8+ adaptive icon resources.
+Alterações feitas automaticamente:
+- ícones legacy mdpi a xxxhdpi;
+- adaptive icon Android 8+;
+- round icon;
+- `android:icon` e `android:roundIcon` no Manifest;
+- `versionCode 17` e `versionName 3.0.8`.
