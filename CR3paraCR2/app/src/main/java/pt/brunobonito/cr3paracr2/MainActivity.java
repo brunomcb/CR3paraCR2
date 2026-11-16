@@ -18,31 +18,25 @@ public class MainActivity extends Activity {
 
     @Override public void onCreate(Bundle b) {
         super.onCreate(b);
-        int pad = dp(24);
-        LinearLayout box = new LinearLayout(this);
-        box.setOrientation(LinearLayout.VERTICAL);
-        box.setPadding(pad, dp(42), pad, pad);
-        box.setBackgroundColor(Color.rgb(255,251,254));
-
-        TextView title = text("CR3 para CR2", 28, true);
-        TextView desc = text("Seleciona uma pasta e a app altera apenas os nomes dos ficheiros .CR3/.cr3 para .CR2/.cr2. O conteúdo RAW não é convertido.", 16, false);
-        recursive = new CheckBox(this);
-        recursive.setText("Incluir subpastas");
-        recursive.setTextSize(16);
-        choose = new Button(this);
-        choose.setText("Selecionar pasta");
-        choose.setOnClickListener(v -> pickFolder());
-        status = text("Nenhuma pasta selecionada.", 15, false);
-        status.setTextIsSelectable(true);
-
-        box.addView(title, lp(0, 12));
-        box.addView(desc, lp(0, 20));
-        box.addView(recursive, lp(0, 16));
-        box.addView(choose, lp(0, 20));
-        box.addView(status, lp(0, 0));
-        setContentView(box);
+        getWindow().setStatusBarColor(Color.rgb(246,247,251));
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        ScrollView scroll=new ScrollView(this); scroll.setFillViewport(true); scroll.setBackgroundColor(Color.rgb(246,247,251));
+        LinearLayout page=new LinearLayout(this); page.setOrientation(LinearLayout.VERTICAL); page.setPadding(dp(22),dp(28),dp(22),dp(30));
+        scroll.addView(page,new ScrollView.LayoutParams(-1,-2));
+        TextView brand=text("RAW RENAME",14,true); brand.setTextColor(Color.rgb(91,79,247)); page.addView(brand,lp(0,22));
+        TextView title=text("Organiza os teus ficheiros RAW em segundos.",34,true); title.setTextColor(Color.rgb(23,26,43)); page.addView(title,lp(0,12));
+        TextView desc=text("Seleciona uma pasta e altera em lote a extensão .CR3 para .CR2, sem enviar ficheiros para a internet.",16,false); desc.setTextColor(Color.rgb(105,112,137)); page.addView(desc,lp(0,26));
+        LinearLayout card=new LinearLayout(this); card.setOrientation(LinearLayout.VERTICAL); card.setBackgroundResource(R.drawable.card); card.setElevation(dp(3));
+        TextView step=text("01  SELECIONAR PASTA",12,true); step.setTextColor(Color.rgb(91,79,247)); card.addView(step,lp(0,14));
+        TextView hint=text("Escolhe a pasta que contém os ficheiros CR3",17,true); hint.setTextColor(Color.rgb(23,26,43)); card.addView(hint,lp(0,8));
+        TextView privacy=text("A app apenas acede à pasta que selecionares.",14,false); privacy.setTextColor(Color.rgb(105,112,137)); card.addView(privacy,lp(0,18));
+        recursive=new CheckBox(this); recursive.setText("Incluir também as subpastas"); recursive.setTextSize(15); recursive.setTextColor(Color.rgb(23,26,43)); recursive.setButtonTintList(android.content.res.ColorStateList.valueOf(Color.rgb(91,79,247))); card.addView(recursive,lp(0,18));
+        choose=new Button(this); choose.setAllCaps(false); choose.setText("Escolher pasta"); choose.setTextColor(Color.WHITE); choose.setTextSize(16); choose.setTypeface(null,1); choose.setBackgroundResource(R.drawable.button_primary); choose.setOnClickListener(v->pickFolder()); card.addView(choose,new LinearLayout.LayoutParams(-1,dp(58)));
+        page.addView(card,lp(0,18));
+        TextView warning=text("IMPORTANTE\n\nA extensão muda, mas o formato RAW interno continua a ser CR3. Esta operação não converte a imagem.",14,false); warning.setTextColor(Color.rgb(55,48,110)); warning.setPadding(dp(18),dp(16),dp(18),dp(16)); warning.setBackground(roundBg(Color.rgb(239,238,255),18)); page.addView(warning,lp(0,18));
+        status=text("Pronto para começar",14,true); status.setTextColor(Color.rgb(105,112,137)); status.setTextIsSelectable(true); page.addView(status,lp(0,0)); setContentView(scroll);
     }
-
+    private android.graphics.drawable.GradientDrawable roundBg(int color,int radius){android.graphics.drawable.GradientDrawable g=new android.graphics.drawable.GradientDrawable();g.setColor(color);g.setCornerRadius(dp(radius));return g;}
     private TextView text(String s, int sp, boolean bold) {
         TextView t = new TextView(this); t.setText(s); t.setTextSize(sp); t.setTextColor(Color.rgb(40,35,42));
         if (bold) t.setTypeface(null, 1); return t;
