@@ -1,89 +1,10 @@
 package pt.brunobonito.cr3paracr2;
-
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.util.AttributeSet;
-import android.view.View;
-
+import android.content.*; import android.graphics.*; import android.util.*; import android.view.*;
 public class WaveProgressView extends View {
-    private final Paint track = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint active = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private final Paint stop = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private float progress = 0f;
-    private float phase = 0f;
-    private final float trackThickness;
-    private final float activeThickness;
-    private final float amplitude;
-    private final float wavelength;
-
-    public WaveProgressView(Context c) { this(c, null); }
-    public WaveProgressView(Context c, AttributeSet a) {
-        super(c, a);
-        trackThickness = dp(4);
-        activeThickness = dp(4);
-        amplitude = dp(3);
-        wavelength = dp(24);
-        track.setStrokeWidth(trackThickness);
-        track.setStrokeCap(Paint.Cap.ROUND);
-        active.setStrokeWidth(activeThickness);
-        active.setStrokeCap(Paint.Cap.ROUND);
-        stop.setStyle(Paint.Style.FILL);
-        setMinimumHeight((int) dp(28));
-    }
-
-    public void setColors(int primary, int secondaryContainer) {
-        active.setColor(primary);
-        stop.setColor(primary);
-        track.setColor(secondaryContainer);
-        invalidate();
-    }
-
-    public void setProgress(float value) {
-        progress = Math.max(0f, Math.min(1f, value));
-        phase += 0.22f;
-        invalidate();
-    }
-
-    @Override protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        float inset = dp(4) + Math.max(activeThickness / 2f, amplitude);
-        float left = inset;
-        float right = getWidth() - inset;
-        float centerY = getHeight() / 2f;
-        if (right <= left) return;
-
-        canvas.drawLine(left, centerY, right, centerY, track);
-        float end = left + (right - left) * progress;
-
-        if (end > left) {
-            Path wave = new Path();
-            wave.moveTo(left, centerY);
-            for (float x = left; x <= end; x += dp(0.75f)) {
-                float distanceFromStart = x - left;
-                float distanceToEnd = end - x;
-                float startRamp = Math.min(1f, distanceFromStart / (wavelength / 2f));
-                float endRamp = Math.min(1f, Math.max(0f, distanceToEnd / (wavelength / 2f)));
-                float envelope = Math.min(startRamp, endRamp);
-                float y = (float) (centerY + Math.sin((distanceFromStart / wavelength) * Math.PI * 2 + phase) * amplitude * envelope);
-                wave.lineTo(x, y);
-            }
-            canvas.drawPath(wave, active);
-        }
-
-        float stopRadius = dp(2);
-        canvas.drawCircle(right, centerY, stopRadius, stop);
-    }
-
-    @Override protected void onMeasure(int widthSpec, int heightSpec) {
-        int desiredHeight = (int) dp(28);
-        int width = resolveSize(getSuggestedMinimumWidth(), widthSpec);
-        int height = resolveSize(desiredHeight, heightSpec);
-        setMeasuredDimension(width, height);
-    }
-
-    private float dp(float value) {
-        return value * getResources().getDisplayMetrics().density;
-    }
+ private final Paint track=new Paint(1),active=new Paint(1),stop=new Paint(1); private float progress,phase;
+ public WaveProgressView(Context c){this(c,null);} public WaveProgressView(Context c,AttributeSet a){super(c,a);float t=dp(4);track.setStrokeWidth(t);active.setStrokeWidth(t);track.setStrokeCap(Paint.Cap.ROUND);active.setStrokeCap(Paint.Cap.ROUND);stop.setStyle(Paint.Style.FILL);}
+ public void setColors(int p,int tr){active.setColor(p);stop.setColor(p);track.setColor(tr);}
+ public void setProgress(float p){progress=Math.max(0,Math.min(1,p));phase+=.2f;invalidate();}
+ protected void onDraw(Canvas c){float left=dp(7),right=getWidth()-dp(7),y=getHeight()/2f;c.drawLine(left,y,right,y,track);float end=left+(right-left)*progress;if(end>left){Path w=new Path();w.moveTo(left,y);for(float x=left;x<=end;x+=dp(.75f)){float d=x-left,r=end-x,e=Math.min(1f,Math.min(d/dp(12),Math.max(0,r/dp(12))));w.lineTo(x,(float)(y+Math.sin(d/dp(24)*Math.PI*2+phase)*dp(3)*e));}c.drawPath(w,active);}c.drawCircle(right,y,dp(2),stop);}
+ private float dp(float v){return v*getResources().getDisplayMetrics().density;}
 }

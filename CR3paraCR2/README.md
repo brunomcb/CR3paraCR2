@@ -1,13 +1,16 @@
-# CR3 para CR2
+# RAW Rename 3.0
+Aplicação Android Material 3 para renomear extensões em lote usando o Storage Access Framework.
 
-App Android que permite escolher uma pasta e renomear ficheiros `.CR3/.cr3` para `.CR2/.cr2`.
+## Funcionalidades diretas da app
+- CR3 ↔ CR2 e extensões personalizadas
+- Pré-visualização e conflitos: ignorar, sufixar ou cancelar
+- Prefixo e sufixo opcionais
+- Subpastas
+- WorkManager em background, notificação e cancelamento
+- Progresso Material 3 com conversão explícita
+- Desfazer persistente da última operação
+- Histórico local resumido
+- Exportação CSV
+- Cores dinâmicas do sistema, tema claro/escuro e contraste semântico
 
-> A app altera apenas a extensão no nome. Não converte o formato RAW CR3 para CR2.
-
-## Gerar o APK no GitHub
-1. Crie um repositório e carregue todo o conteúdo deste projeto.
-2. Abra **Actions > Build APK > Run workflow**.
-3. No fim, descarregue o artefacto `CR3paraCR2-debug-apk`.
-
-## Gerar no Android Studio
-Abra o projeto e use **Build > Build APK(s)**.
+> Renomear uma extensão não converte o formato interno do ficheiro.
